@@ -1,0 +1,28 @@
+<%= form_for @csv,:url=> import_csvs_path, :html => { :class => 'form-horizontal' } do |f| %>
+
+    <div class="control-group">
+
+      <div class="controls">
+        <% if @listloaded.present? %>
+            <label><b>Select List:</b></label>
+            <%= f.select :list_id, [['Select List', '']].concat(@listloaded.inject([]) {|arr, e| arr <<  [e["name"],e["id"]]}) %>
+        <% else %>
+            <div class="alert alert-info">Please go the settings section and enter the API key and then select a valid list. </div>
+        <%end%>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+          <%= f.file_field :csv %>
+      </div>
+    </div>
+
+  <div class="form-actions">
+    <%= f.submit :submit, :class => 'btn btn-primary', :value=>"Submit" %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                root_url, :class => 'btn' %>
+  </div>
+<% end %>
+<b><%= "Upload PDF " %></b>
+<%= link_to "click here", upload_csvs_path %>

@@ -1,0 +1,8 @@
+<%= simple_form_for @mandrill_setting, :html => { :class => 'form-horizontal' } do |f| %>
+    <%= f.input :subject %>
+    <%= f.input :from_name %>
+    <%= f.input :from_email %>
+    <div class="form-actions">
+      <%= f.submit :submit, :class => 'btn btn-primary', :value=>"Create Mandrill Settings" %>
+    </div>
+<% end %>

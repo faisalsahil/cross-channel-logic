@@ -1,0 +1,15 @@
+<%= form_for @manage,:url=>search_subscriber_manages_path, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="controls">
+    <%= " Email:" %>
+    <%= f.text_field :email %>
+  </div><br/>
+  <div class="controls">
+  <%= "Ticket:" %>
+  <%= f.text_field :tickeck_id %>
+  </div>
+    <div class="form-actions">
+    <%= f.submit :submit, :class => 'btn btn-primary',:value=>"Search" %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                root_url, :class => 'btn' %>
+  </div>
+<% end %>

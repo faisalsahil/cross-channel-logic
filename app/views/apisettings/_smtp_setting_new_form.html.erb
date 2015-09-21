@@ -1,0 +1,14 @@
+<%= simple_form_for @smtp_setting, :html => { :class => 'form-horizontal' } do |f| %>
+    <%= f.input :address %>
+    <%= f.input :port %>
+    <%= f.input :domain %>
+    <%= f.input :user_name %>
+    <%= f.input :password %>
+    <%= f.input :authentication %>
+    <%= f.input :enable_starttls_auto %>
+    <div class="form-actions">
+      <%= f.submit :submit, :class => 'btn btn-primary', :value=>"Create SMTP Settings" %>
+      <%#= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  smtp_settings_path, :class => 'btn' %>
+    </div>
+<% end %>

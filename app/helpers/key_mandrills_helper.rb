@@ -1,0 +1,2 @@
+module KeyMandrillsHelper
+end

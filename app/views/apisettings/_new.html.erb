@@ -1,0 +1,137 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#get-list').click(function (e) {
+            e.preventDefault();
+            var keyVal = $("#apisetting_api_key").val();
+            var origin = window.location.origin;
+            window.location.href = origin + '/apisettings/load_list?key=' + keyVal;
+        });
+
+        $(".change-mandrill-api").click(function () {
+            $("#setting-mandrill-api").removeClass('invisible');
+        });
+        $("#close-mandrill-form").click(function () {
+            $("#setting-mandrill-api").addClass('invisible');
+        });
+
+        $(".change-mandrill-setting").click(function () {
+            $("#mandrill-setting").removeClass('invisible');
+        });
+        $("#close-mandrill-setting-form").click(function () {
+            $("#mandrill-setting").addClass('invisible');
+        });
+
+        $(".change-smtp-api").click(function () {
+            $("#setting-smtp-api").removeClass('invisible');
+        });
+        $("#close-smtp-form").click(function () {
+            $("#setting-smtp-api").addClass('invisible');
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<h3>Mailchimp API</h3>
+<div class="well width">
+<%= form_for @apisetting, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="controls">
+      <%= f.label :api_key %>
+      <% if @api_key.present? %>
+          <%= f.text_field :api_key, :value=>@api_key %>
+      <% else %>
+          <%= f.text_field :api_key %>
+      <% end %>
+      <%= link_to " Get list", "javascript:void(0)", :class=>"btn btn-primary", :id=>"get-list" %>
+    </div>
+
+    <div class="control-group">
+
+      <div class="controls">
+        <% if @listloaded %>
+            <label>Select List</label>
+            <%= f.select :list, [['Select List', '']].concat(@listloaded.inject([]) {|arr, e| arr <<  [e["name"],e["id"]]}) %>
+        <%end%>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit :submit, :class => 'btn btn-primary', :value => "Create Mailchimp API" %>
+      <%#= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  apisettings_path, :class => 'btn' %>
+    </div>
+<% end %>
+</div>
+<br/><br/>
+
+
+<!--<h3>Mandrill API</h3>-->
+<!--<div class="well">-->
+  <!--<%#= render :partial=> "mandrill_new_form", :url=>key_mandrills_path%>-->
+<!--</div>-->
+<h3>Mandrill API</h3>
+<% if !@key_mandrill.new_record? %>
+    <div class="alert alert-success row-fluid" style="width: 809px">
+      <% if @key_mandrill.key.present? %>
+          <b><%= "Api Key:" %></b><%= "#{@key_mandrill.key}" %>
+          <br/>
+      <% end %>
+      <% if @key_mandrill.template_name.present? %>
+          <b><%= "Template Name:" %></b><%= "#{@key_mandrill.template_name}" %>
+      <% end %>
+      <br/>
+      <div class="pull-right">
+        <a href="javascript:void(0);" class="change-mandrill-api">change</a>
+      </div>
+    </div>
+    <%= render :partial => "mandrill_edit_form" %>
+<% else %>
+    <div class="well width">
+      <%= render "mandrill_new_form" %>
+    </div>
+<% end %>
+
+
+<h3>Mandrill Settings</h3>
+<% if !@mandrill_setting.new_record? %>
+    <div class="alert alert-success row-fluid" style="width: 809px">
+      <b><%= "Subject:" %></b><%= "#{@mandrill_setting.subject}" %><br/>
+      <b><%= "From Name:" %></b><%= "#{@mandrill_setting.user_name}" %><br/>
+      <b><%= "From Email:" %></b><%= "#{@mandrill_setting.email}" %><br/>
+      <div class="pull-right">
+        <a href="javascript:void(0);" class="change-mandrill-setting">change</a>
+      </div>
+    </div>
+    <%= render :partial => "mandrill_setting_edit_form" %>
+<% else %>
+    <div class="well width">
+      <%= render "mandrill_setting_new_form" %>
+    </div>
+<% end %>
+
+
+<h3>SMTP Settings</h3>
+<% if !@smtp_setting.new_record? %>
+    <div class="alert alert-success row-fluid" style="width: 809px">
+      <b><%= "Address:" %></b><%= "#{@smtp_setting.address}" %><br/>
+      <b><%= "Port:" %></b><%= "#{@smtp_setting.port}" %><br/>
+      <b><%= "Domain:" %></b><%= "#{@smtp_setting.domain}" %><br/>
+      <b><%= "User Name:" %></b><%= "#{@smtp_setting.user_name}" %><br/>
+      <b><%= "Password:" %></b><%= "#{@smtp_setting.password}" %><br/>
+      <b><%= "Authentication:" %></b><%= "#{@smtp_setting.authentication}" %><br/>
+      <b><%= "Enable Starttls Auto:" %></b><%= "#{@smtp_setting.enable_starttls_auto}" %>
+
+      <div class="pull-right">
+        <a href="javascript:void(0);" class="change-smtp-api">change</a>
+      </div>
+    </div>
+    <%= render :partial => "smtp_setting_edit_form" %>
+<% else %>
+    <div class="well width">
+      <%= render "smtp_setting_new_form" %>
+    </div>
+<% end %>

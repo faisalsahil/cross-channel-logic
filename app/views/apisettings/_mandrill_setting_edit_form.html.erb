@@ -1,0 +1,14 @@
+<div id="mandrill-setting" class="invisible row-fluid  well" style="padding: 24px 35px 2px 14px !important; width:809px;">
+
+  <%= simple_form_for @mandrill_setting,:url=>mandrill_setting_path(@mandrill_setting), :html => { :class => 'form-horizontal' } do |f| %>
+      <a id="close-mandrill-setting-form" class="icon-remove pull-right"></a>
+      <%= f.input :subject %>
+      <%= f.input :from_name %>
+      <%= f.input :from_email %>
+      <div class="form-actions">
+        <%= f.button :submit,"Update Mandrill Settings", :class => 'btn-primary' %>
+      </div>
+  <% end %>
+</div>
+
+

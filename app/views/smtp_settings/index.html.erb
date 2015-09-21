@@ -1,0 +1,48 @@
+<%- model_class = SmtpSetting -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:port) %></th>
+      <th><%= model_class.human_attribute_name(:domain) %></th>
+      <th><%= model_class.human_attribute_name(:user_name) %></th>
+      <th><%= model_class.human_attribute_name(:password) %></th>
+      <th><%= model_class.human_attribute_name(:authentication) %></th>
+      <th><%= model_class.human_attribute_name(:enable_starttls_auto) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @smtp_settings.each do |smtp_setting| %>
+      <tr>
+        <td><%= link_to smtp_setting.id, smtp_setting_path(smtp_setting) %></td>
+        <td><%= smtp_setting.address %></td>
+        <td><%= smtp_setting.port %></td>
+        <td><%= smtp_setting.domain %></td>
+        <td><%= smtp_setting.user_name %></td>
+        <td><%= smtp_setting.password %></td>
+        <td><%= smtp_setting.authentication %></td>
+        <td><%= smtp_setting.enable_starttls_auto %></td>
+        <td><%=l smtp_setting.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_smtp_setting_path(smtp_setting), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      smtp_setting_path(smtp_setting),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_smtp_setting_path,
+            :class => 'btn btn-primary' %>

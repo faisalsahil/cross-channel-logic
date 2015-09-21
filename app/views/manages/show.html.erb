@@ -1,0 +1,44 @@
+<div class="page-header">
+<h3>Unsubscrib Successfully</h3>
+</div>
+
+<div class="alert alert-success">
+  <% if @member.present? %>
+      <b>Email:</b><%= " "%><%= @member.email %>
+      <br/>
+      <b>List Name:</b><%= " "%><%= @member.list_name %>
+      <br/>
+      <b>Status:</b><%= "Removed on "%><%= @member.remove_date %>
+      <br/>
+      <b>Removed by:</b><%= " "%><%= @user.email %>
+  <% end %>
+</div> <br/><br/><br/><br/><br/><br/><br/>
+
+<%= link_to "Go Back", manages_path%>
+
+
+<!--<table class="table alert alert-success">-->
+<!--<thead>-->
+<!--<th></th>-->
+<!--<th></th>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr>-->
+<!--<td><b>Email:</b></td>-->
+<!--<td><%#= @member.email %></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><b>List Name:</b></td>-->
+<!--<td><%#= @member.list_name %></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><b>Status:</b></td>-->
+<!--<td><%#= @member.remove_date %></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><b>Removed by:</b></td>-->
+<!--<td><%#= @user.email %></td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--<%#= link_to "Go Back", manages_path%>-->

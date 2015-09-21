@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.get-template').click(function (e) {
+            e.preventDefault();
+            var keyVal = $("#key_mandrill_key").val();
+            var origin = window.location.origin;
+            window.location.href = origin + '/apisettings/load_template?key=' + keyVal;
+        });
+});
+</script>
+<div id="setting-mandrill-api" class="invisible row-fluid  well" style="padding: 24px 35px 2px 14px !important; width:809px;">
+    <%= form_for @key_mandrill,:url=>key_mandrill_path(@key_mandrill), :html => {:class => 'form-horizontal'} do |f| %>
+        <% if @key_mandrill.key.present? %>
+            <b><%= "Api Key: "%></b><%= f.text_field :key, :value=>@key_mandrill.key %>
+        <% else %>
+            <b><%= "Api Key: "%></b><%= "API key not found" %>
+        <% end %>
+        <%= link_to " Get Temp", "#", :class=>"btn btn-primary get-template" %>
+        <% if @list_template.present? %>
+            <b><%= "Templates: "%></b><%= f.select :template_name, [['Select Template', '']].concat(@list_template) %>
+        <%end%>
+        <%= f.submit :submit, :class => 'btn btn-primary', :value => "Update" %>
+        <a id="close-mandrill-form" class="icon-remove pull-right"></a>
+    <% end %>
+</div>
+

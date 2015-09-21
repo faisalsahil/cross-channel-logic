@@ -1,0 +1,32 @@
+<div class="page-header">
+  <% if @member.first.remove_date.blank? %>
+        <h3>Subscriber Found</h3>
+  <% else %>
+      <h3>Subscriber Not Found</h3>
+  <% end %>
+</div>
+
+<div class="alert alert-success">
+  <% if @member.present? %>
+      <b>Email:</b><%= " " %><%= @member.first.email %>
+      <br/>
+      <b>List Name:</b><%= " " %><%= @member.first.list_name %>
+  <% end %>
+  <br/>
+  <% if @member.first.remove_date.present? %>
+      <b>Status:</b><%= "Removed on " %><%= @member.first.remove_date %>
+      <br/>
+      <% if @user.present? %>
+          <b>Removed by:</b><%= " " %><%= @user.email %>
+      <% end %>
+  <% end %>
+</div>
+<% if @member.first.remove_date.blank? %>
+    <%= link_to "Unsubscribe", unsubscribe_manages_path({:email => @member.first.email, :list_id => @member.first.list_id,
+                                                         :ticket_id => @member.first.tickect_id}), :class => 'btn btn-mini btn-danger' %>
+    <%= link_to "Go Back", manages_path, :class => "btn btn-primary btn-mini" %>
+<% else %>
+    <!--<button class='btn btn-mini btn-success' disabled type='button'>Unsubscribed</button>-->
+    <%= link_to "Go Back", manages_path, :class => "btn btn-primary btn-mini" %>
+<% end %>
+

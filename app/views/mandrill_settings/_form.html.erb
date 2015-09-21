@@ -1,0 +1,10 @@
+<%= simple_form_for @mandrill_setting, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :subject %>
+  <%= f.input :from_name %>
+  <%= f.input :from_email %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                mandrill_settings_path, :class => 'btn' %>
+  </div>
+<% end %>

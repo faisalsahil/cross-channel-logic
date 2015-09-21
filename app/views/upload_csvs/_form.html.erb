@@ -1,0 +1,12 @@
+<%= form_for @csv,:url=>upload_csv_csvs_path(@upload_csv), :html => {:multipart => true} do |f| %>
+    <%= f.file_field :csv %>
+    <%= f.hidden_field :upload_csv_id , :value => params[:upload_csv_id] if params[:upload_csv_id].present? %>
+
+
+
+    <div class="form-actions">
+      <%= f.submit :submit, :class => 'btn btn-primary', :value=>"Upload" %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  root_url, :class => 'btn' %>
+    </div>
+<% end %>

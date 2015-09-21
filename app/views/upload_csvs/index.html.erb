@@ -1,0 +1,88 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.get-template').click(function (e) {
+            e.preventDefault();
+            var keyVal = $("#template_list").val();
+            alert(keyval);
+            var origin = window.location.origin;
+            window.location.href = origin + '/upload_csvs/send_email?key=' + keyVal;
+        });
+
+    });
+
+</script>
+
+<div class="page-header">
+  <h3>Records</h3>
+</div>
+<% if @upload_csvs.first.present? %>
+          <table class="table table-striped">
+          <thead>
+            <tr>
+
+              <th>Doctor's Name</th>
+              <th>Patient's Name</th>
+              <th>List</th>
+              <th>Email</th>
+              <th>Url</th>
+              <th><%=t '.actions', :default => t("helpers.actions") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @upload_csvs.each do |upload_csv| %>
+              <tr>
+                <!--<td><%#= link_to upload_csv.id, upload_csv_path(upload_csv) %></td>-->
+                <td><%= upload_csv.doctor_name %></td>
+                <td><%= upload_csv.patient_name %></td>
+                <td><%= upload_csv.list_name %></td>
+                <td><%= upload_csv.email %></td>
+                <td>
+                  <% if Csv.find_by_upload_csv_id(upload_csv.id)!=nil %>
+                   <input type="text" value="<%= Csv.find_by_upload_csv_id(upload_csv.id).csv_url %>" >
+                  <% end %>
+                </td>
+
+                <td>
+
+                  <%# if Csv.find_by_upload_csv_id(upload_csv.id)==nil %>
+                  <%= link_to "Upload Pdf",  new_upload_csv_path({:upload_csv_id => upload_csv}), :class => 'btn btn-mini btn-success' %>
+                  <%# else %>
+                   <!--<button class='btn btn-mini btn-success' disabled type='button'>Upload Pdf</button>-->
+                  <%# end %>
+
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_upload_csv_path(upload_csv), :class => 'btn btn-mini btn-primary' %>
+                  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                              upload_csv_path(upload_csv),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                              :class => 'btn btn-mini btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br />
+        <br />
+
+
+        <div style="max-height:10px;height:10px;">
+        <b><%= "Templates: "%></b>
+        <%= select_tag :template_list, options_for_select([['Select Template', '']].concat(@list_template)),
+                       :class => 'input' %>
+        <input type="button" value="Send Emails" class="btn btn-mini btn-success get-template">
+        </div>
+        <% if params[:error_array].present? %>
+        <br /><br />
+        <div class="alert alert-error">
+          <% errors = params[:error_array] %>
+          <ul>
+             <% errors.each do |error| %>
+                <li><%= error %></li>
+             <% end %>
+          </ul>
+        </div>
+        <% end %>
+<% else %>
+    <div class="alert alert-warning">No record found. Please subscribe first</div>
+<% end %>
